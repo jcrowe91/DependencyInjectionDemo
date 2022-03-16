@@ -9,16 +9,29 @@ namespace DemoLibrary
 {
     public class BusinessLogic : IBusinessLogic
     {
+        //class level variables
+        ILogger _logger;
+        IDataAccess _dataAccess;
+
+        //constructor passing in logger and data assess needed for ProcessData method
+        //allows the dependencies to pass up the chain
+        public BusinessLogic(ILogger logger, IDataAccess dataAccess)
+        {
+            _logger = logger;
+            _dataAccess = dataAccess;
+        }
+
         public void ProcessData()
         {
-            Logger logger = new Logger();
-            DataAccess dataAccess = new DataAccess();
+            //removing instantiations and changing names below
+            //Logger logger = new Logger();
+            //DataAccess dataAccess = new DataAccess();
 
-            logger.Log("Starting the processing of data.");
+            _logger.Log("Starting the processing of data.");
             Console.WriteLine("Processing the data");
-            dataAccess.LoadData();
-            dataAccess.SaveData("ProcessedInfo");
-            logger.Log("Finished processing of the data.");
+            _dataAccess.LoadData();
+            _dataAccess.SaveData("ProcessedInfo");
+            _logger.Log("Finished processing of the data.");
         }
     }
 }
