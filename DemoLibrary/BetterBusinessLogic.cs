@@ -7,33 +7,29 @@ using System.Threading.Tasks;
 
 namespace DemoLibrary
 {
-    //classes must be instantiatable, can't be static
-    public class BusinessLogic : IBusinessLogic
+    //class to check changes to dependencies using ContainerConfig
+    public class BetterBusinessLogic : IBusinessLogic
     {
-        //class level variables
+        
         ILogger _logger;
         IDataAccess _dataAccess;
-
-        //constructor passing in logger and data assess needed for ProcessData method
-        //allows the dependencies to pass up the chain
-        //passing in the constructor is called constructor injection
-        public BusinessLogic(ILogger logger, IDataAccess dataAccess)
+       
+        public BetterBusinessLogic(ILogger logger, IDataAccess dataAccess)
         {
             _logger = logger;
             _dataAccess = dataAccess;
         }
 
         public void ProcessData()
-        {
-            //removing instantiations and changing names below
-            //Logger logger = new Logger();
-            //DataAccess dataAccess = new DataAccess();
-
+        {          
             _logger.Log("Starting the processing of data.");
+            Console.WriteLine("CHANGED");
             Console.WriteLine("Processing the data");
             _dataAccess.LoadData();
             _dataAccess.SaveData("ProcessedInfo");
+            Console.WriteLine("CHANGED");
             _logger.Log("Finished processing of the data.");
+            Console.WriteLine("CHANGED");
         }
     }
 }

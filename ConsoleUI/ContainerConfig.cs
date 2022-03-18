@@ -17,9 +17,13 @@ namespace ConsoleUI
             //of all the different classes we want to instantiate
             var builder = new ContainerBuilder();
 
+            //when looking for an IApplication interface-
+            //return an instance of Application
+            builder.RegisterType<Application>().As<IApplication>();
+
             //when looking for an IBusinessLogic interface-
             //return an instance of BusinessLogic
-            builder.RegisterType<BusinessLogic>().As<IBusinessLogic>();
+            builder.RegisterType<BetterBusinessLogic>().As<IBusinessLogic>();
 
             //give all classes in Utilities folder
             //link them to the matching IInterface
